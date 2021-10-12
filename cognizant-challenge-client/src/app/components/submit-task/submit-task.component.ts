@@ -28,6 +28,11 @@ export class SubmitTaskComponent implements OnInit {
   }
 
   onTaskSubmit() {
+    this.tasksService.submit({
+      name: this.name,
+      solution: this.solutionCode,
+      taskExternalId: this.selectedTask.externalId
+    }).subscribe();
   }
 
 }
