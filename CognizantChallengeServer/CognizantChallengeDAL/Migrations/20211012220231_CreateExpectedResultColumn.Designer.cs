@@ -4,14 +4,16 @@ using CognizantChallengeDAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CognizantChallengeDAL.Migrations
 {
     [DbContext(typeof(CognizantChallengeContext))]
-    partial class CognizantChallengeContextModelSnapshot : ModelSnapshot
+    [Migration("20211012220231_CreateExpectedResultColumn")]
+    partial class CreateExpectedResultColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
