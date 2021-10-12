@@ -17,6 +17,7 @@ namespace CognizantChallengeAPI
             Configuration = configuration;
         }
 
+        readonly string CorsPolicy = "corsPolicy";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -31,6 +32,18 @@ namespace CognizantChallengeAPI
 
             services.AddDbContext<CognizantChallengeContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: CorsPolicy, 
+                    builder =>
+                    {
+                        builder
+                        .WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                    });
+            });
 
             services.AddScoped<ITasksRepository, TasksRepository>();
         }
@@ -48,6 +61,8 @@ namespace CognizantChallengeAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(CorsPolicy);
 
             app.UseAuthorization();
 

@@ -17,9 +17,14 @@ namespace CognizantChallengeAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<string[]> GetAll()
+        public ActionResult<Task[]> GetAll()
         {
-            return this.tasksRepository.GetAll().Select(task => task.Name).ToArray();
+            return this.tasksRepository.GetAll().Select(task => new Task 
+            { 
+                Name = task.Name, 
+                Description = task.Description, 
+                ExternalId = task.ExternalId 
+            }).ToArray();
         }
 
         [HttpPost]
