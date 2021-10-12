@@ -1,5 +1,7 @@
 ﻿using CognizantChallengeAPI.Models;
+using CognizantChallengeDAL.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace CognizantChallengeAPI.Controllers
 {
@@ -7,10 +9,17 @@ namespace CognizantChallengeAPI.Controllers
     [ApiController]
     public class TasksController : ControllerBase
     {
+        private readonly ITasksRepository tasksRepository;
+
+        public TasksController(ITasksRepository tasksRepository)
+        {
+            this.tasksRepository = tasksRepository;
+        }
+
         [HttpGet]
         public ActionResult<string[]> GetAll()
         {
-            return new string[] { "test", "test2" };
+            return this.tasksRepository.GetAll().Select(task => task.Name).ToArray();
         }
 
         [HttpPost]
