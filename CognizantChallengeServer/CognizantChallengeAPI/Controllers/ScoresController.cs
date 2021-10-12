@@ -1,6 +1,8 @@
 ﻿using CognizantChallengeAPI.Models;
+using CognizantChallengeDAL.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CognizantChallengeAPI.Controllers
 {
@@ -8,14 +10,17 @@ namespace CognizantChallengeAPI.Controllers
     [ApiController]
     public class ScoresController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<List<Score>> GetAll()
+        private readonly IScoresRepository scoresRepository;
+
+        public ScoresController(IScoresRepository scoresRepository)
         {
-            return new List<Score>
-            {
-                new Score { Name = "test", SuccessSolutions = 1, Tasks = new [] { "test" } },
-                new Score { Name = "test 2", SuccessSolutions = 1, Tasks = new [] { "test", "test2", "test3" } },
-            };
+            this.scoresRepository = scoresRepository;
+        }
+
+        [HttpGet]
+        public ActionResult<List<Score>> GetTop(int top)
+        {
+            return scoresRepository.GetTop(top).Select(s => new Score { Name = s.User.Name, SuccessSolutions = s.SuccessfulSubmissions, Tasks = s.Tasks}).ToList();
         }
     }
 }
