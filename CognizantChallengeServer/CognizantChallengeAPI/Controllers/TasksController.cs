@@ -33,9 +33,9 @@ namespace CognizantChallengeAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Submit(TaskSubmit taskSubmit)
+        public async System.Threading.Tasks.Task<ActionResult> Submit(TaskSubmit taskSubmit)
         {
-            this.checkSubmissionLogic.Check(taskSubmit);
+            await this.checkSubmissionLogic.Check(taskSubmit);
             return Ok();
         }
     }

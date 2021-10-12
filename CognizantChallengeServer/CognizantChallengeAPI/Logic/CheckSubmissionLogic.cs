@@ -10,7 +10,7 @@ namespace CognizantChallengeAPI.Logic
 {
     public interface ICheckSubmissionLogic
     {
-        void Check(TaskSubmit taskSubmit);
+        System.Threading.Tasks.Task Check(TaskSubmit taskSubmit);
     }
     public class CheckSubmissionLogic : ICheckSubmissionLogic
     {
@@ -21,9 +21,9 @@ namespace CognizantChallengeAPI.Logic
             this.jDoodleClient = jDoodleClient;
         }
 
-        public void Check(TaskSubmit taskSubmit)
+        public async System.Threading.Tasks.Task Check(TaskSubmit taskSubmit)
         {
-            this.jDoodleClient.Execute();
+            await this.jDoodleClient.Execute();
         }
     }
 }
