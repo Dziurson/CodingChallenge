@@ -1,3 +1,5 @@
+using CognizantChallengeAPI.Clients;
+using CognizantChallengeAPI.Logic;
 using CognizantChallengeDAL;
 using CognizantChallengeDAL.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -43,11 +45,17 @@ namespace CognizantChallengeAPI
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                     });
-            });
+            });            
 
             services.AddScoped<ITasksRepository, TasksRepository>();
             services.AddScoped<IScoresRepository, ScoresRepository>();
+            services.AddScoped<ICheckSubmissionLogic, CheckSubmissionLogic>();
+            services.AddScoped<IJDoodleClient, JDoodleClient>();
+
+            services.AddHttpClient<IJDoodleClient, JDoodleClient>(c => c.BaseAddress = new System.Uri("https://api.jdoodle.com/v1/"));
+
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -1,4 +1,5 @@
-﻿using CognizantChallengeAPI.Models;
+﻿using CognizantChallengeAPI.Logic;
+using CognizantChallengeAPI.Models;
 using CognizantChallengeDAL.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -10,10 +11,14 @@ namespace CognizantChallengeAPI.Controllers
     public class TasksController : ControllerBase
     {
         private readonly ITasksRepository tasksRepository;
+        private readonly ICheckSubmissionLogic checkSubmissionLogic;
 
-        public TasksController(ITasksRepository tasksRepository)
+        public TasksController(
+            ITasksRepository tasksRepository,
+            ICheckSubmissionLogic checkSubmissionLogic)
         {
             this.tasksRepository = tasksRepository;
+            this.checkSubmissionLogic = checkSubmissionLogic;
         }
 
         [HttpGet]
@@ -30,6 +35,7 @@ namespace CognizantChallengeAPI.Controllers
         [HttpPost]
         public ActionResult Submit(TaskSubmit taskSubmit)
         {
+            this.checkSubmissionLogic.Check(taskSubmit);
             return Ok();
         }
     }
