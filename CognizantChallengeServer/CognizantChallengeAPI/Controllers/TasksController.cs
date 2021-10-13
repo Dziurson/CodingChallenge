@@ -3,6 +3,7 @@ using CognizantChallengeAPI.Models;
 using CognizantChallengeDAL.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CognizantChallengeAPI.Controllers
 {
@@ -22,9 +23,9 @@ namespace CognizantChallengeAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<Task[]> GetAll()
+        public ActionResult<Models.Task[]> GetAll()
         {
-            return this.tasksRepository.GetAll().Select(task => new Task 
+            return this.tasksRepository.GetAll().Select(task => new Models.Task
             { 
                 Name = task.Name, 
                 Description = task.Description, 
@@ -33,10 +34,10 @@ namespace CognizantChallengeAPI.Controllers
         }
 
         [HttpPost]
-        public async System.Threading.Tasks.Task<ActionResult> Submit(TaskSubmit taskSubmit)
+        public async Task<ActionResult<TaskSubmitResult>> Submit(TaskSubmit taskSubmit)
         {
-            await this.checkSubmissionLogic.Check(taskSubmit);
-            return Ok();
+            var result = await this.checkSubmissionLogic.Check(taskSubmit);
+            return result;
         }
     }
 }

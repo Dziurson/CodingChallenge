@@ -1,14 +1,14 @@
-﻿using System;
+﻿using CognizantChallengeDAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CognizantChallengeDAL.Repositories
 {
     public interface ITasksRepository
     {
-        List<Models.Task> GetAll();
+        List<Task> GetAll();
+        Task GetByExternalId(Guid externalId);
     }
 
     public class TasksRepository : ITasksRepository
@@ -20,10 +20,15 @@ namespace CognizantChallengeDAL.Repositories
             this.cognizantChallengeContext = cognizantChallengeContext;
         }
 
-        public List<Models.Task> GetAll()
+        public List<Task> GetAll()
         {
             cognizantChallengeContext.SaveChanges();
             return cognizantChallengeContext.Tasks.ToList();
+        }
+
+        public Task GetByExternalId(Guid externalId)
+        {
+            return cognizantChallengeContext.Tasks.FirstOrDefault(t => t.ExternalId == externalId);
         }
     }
 }

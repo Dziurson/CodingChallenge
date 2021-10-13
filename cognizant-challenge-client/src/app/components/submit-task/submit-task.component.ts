@@ -13,6 +13,7 @@ export class SubmitTaskComponent implements OnInit {
   public selectedTask: Task;
   public solutionCode: string;
   public name: string;
+  public output: string;
 
   constructor(private tasksService: TasksService) { }
 
@@ -32,7 +33,9 @@ export class SubmitTaskComponent implements OnInit {
       name: this.name,
       solution: this.solutionCode,
       taskExternalId: this.selectedTask.externalId
-    }).subscribe();
+    }).subscribe(result => {
+      this.output = `${result.output}\nStatusCode: ${result.statusCode}\nSuccess: ${result.success}`
+    });
   }
 
 }

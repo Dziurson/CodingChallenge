@@ -17,9 +17,13 @@
     </div>
     <div class="form-group mt-3">
       <label>Solution Code</label>
-      <textarea class="form-control" rows="20" [(ngModel)]="solutionCode"></textarea>
+      <textarea class="form-control fixed-size" rows="20" [(ngModel)]="solutionCode"></textarea>
     </div>
     <div class="d-flex justify-content-end">
       <button class="btn btn-secondary mt-2" (click)="onTaskSubmit()">Submit</button>
+    </div>
+    <div class="form-group mt-3">
+      <label>Output</label>
+      <textarea class="form-control fixed-size" rows="5" [(ngModel)]="output" disabled></textarea>
     </div>
 </div>

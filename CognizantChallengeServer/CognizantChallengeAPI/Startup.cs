@@ -49,6 +49,8 @@ namespace CognizantChallengeAPI
 
             services.AddScoped<ITasksRepository, TasksRepository>();
             services.AddScoped<IScoresRepository, ScoresRepository>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<ISolutionsRepository, SolutionsRepository>();
             services.AddScoped<ICheckSubmissionLogic, CheckSubmissionLogic>();
             services.AddScoped<IJDoodleClient, JDoodleClient>();
 
